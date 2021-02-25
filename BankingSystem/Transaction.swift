@@ -10,7 +10,7 @@ import Foundation
 //enum for transaction types
 enum TransactionType{
     case deposit
-    case draw
+    case withdraw
 }
 
 class Transaction{
@@ -19,7 +19,7 @@ class Transaction{
     var customer_id: String = ""
     
     func handleMoneyTransaction(account: Account, row: Int, transactionType: TransactionType){
-        //param:- transactionType holds enum value either .deposit or .draw
+        //param:- transactionType holds enum value either .deposit or .withdraw
         
         let accounts = account.accountNo // user account(s)
         
@@ -237,7 +237,7 @@ class Transaction{
                     }else if(choice == "2"){
                         handleMoneyTransaction(account: account, row: row, transactionType: .deposit)
                     }else if(choice == "3"){
-                        handleMoneyTransaction(account: account, row: row, transactionType: .draw)
+                        handleMoneyTransaction(account: account, row: row, transactionType: .withdraw)
                     }else if(choice == "4"){
                         transferMoney(account: account, row: row, allAccounts: localData.accounts)
                     }else if(choice == "5"){
