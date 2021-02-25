@@ -13,7 +13,7 @@ class LocalData: Codable{
 }
 
 class Account: Codable{
-    var cin: String
+    var customer_id: String
     var name: String
     var phoneNo: String
     var address: String
@@ -24,8 +24,8 @@ class Account: Codable{
     var accBalance = [String: String]()
     
     
-    init(cin: String, name: String, phoneNo: String, address: String, email: String, accountNo: [String:String], pin: String, accountTypes: [String], accBalance: [String: String]) {
-        self.cin = cin
+    init(customer_id: String, name: String, phoneNo: String, address: String, email: String, accountNo: [String:String], pin: String, accountTypes: [String], accBalance: [String: String]) {
+        self.customer_id = customer_id
         self.name = name
         self.phoneNo = phoneNo
         self.address = address

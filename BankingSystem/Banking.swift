@@ -10,17 +10,18 @@ import Foundation
 
 class Banking{
     
-    private func getIndex(with cin: String)->Int{
+    //return the index of the accounts array(which is stored locally) where customer id matches.
+    private func getIndex(with customer_id: String)->Int{
         let localData = readLocalFile()
         if(localData.accounts.isEmpty){
             return -1
         }
-        return localData.accounts.firstIndex(where: {$0.cin == cin}) ?? -1
+        return localData.accounts.firstIndex(where: {$0.customer_id == customer_id}) ?? -1
     }
     
     private func createAccount(of accountType: String){
-        print("Enter CIN")
-        let cin = readLine()!
+        print("Set customer id")
+        let customer_id = readLine()!
         
         let localData = readLocalFile()
         var accountTypes = [String]()
@@ -28,7 +29,7 @@ class Banking{
         var accNo: String = ""
         var pin: String = ""
         
-        let index = getIndex(with: cin)
+        let index = getIndex(with: customer_id)
         
         if(index == -1){
             // new user
@@ -48,7 +49,7 @@ class Banking{
             accNo = accountNo
             let generatedPin = String(String(Int64(Date().timeIntervalSince1970 * 1000)).suffix(4))
             pin = generatedPin
-            let account = Account(cin: cin, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: [accountType:accountNo], pin: pin, accountTypes: accountTypes, accBalance: accBalance)
+            let account = Account(customer_id: customer_id, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: [accountType:accountNo], pin: pin, accountTypes: accountTypes, accBalance: accBalance)
             
             localData.accounts.append(account)
         }else{
@@ -79,7 +80,7 @@ class Banking{
                 accountTypes.append(accountType)
             }
             
-            let account = Account(cin: storedAcc.cin, name: storedAcc.name, phoneNo: storedAcc.phoneNo, address: storedAcc.address, email: storedAcc.email, accountNo: updatedAccNo, pin: storedAcc.pin, accountTypes: accountTypes, accBalance: accBalance)
+            let account = Account(customer_id: storedAcc.customer_id, name: storedAcc.name, phoneNo: storedAcc.phoneNo, address: storedAcc.address, email: storedAcc.email, accountNo: updatedAccNo, pin: storedAcc.pin, accountTypes: accountTypes, accBalance: accBalance)
             localData.accounts[index] = account
             
             print("----------------------------------------------------------------------------")
@@ -90,8 +91,8 @@ class Banking{
         
         saveJsonFile(of: localData)
         
-        print("Account Created Successfully!!")
         print("----------------------------------------------------------------------------")
+        print("Account Created Successfully!!")
         print("Your Account No. is: \(accNo)    Pin: \(pin)    Account Type: \(accountType)")
         print("----------------------------------------------------------------------------")
         
@@ -100,11 +101,11 @@ class Banking{
     
     
     private func editAccountDetails(){
-        print("Enter CIN")
-        let cin = readLine()!
+        print("Enter customer id")
+        let customer_id = readLine()!
         var accounts = readLocalFile().accounts
         
-        if(accounts.contains(where: {$0.cin == cin})){
+        if(accounts.contains(where: {$0.customer_id == customer_id})){
             
             print("Enter new name")
             let name = readLine()!
@@ -115,8 +116,8 @@ class Banking{
             print("Enter new email address")
             let email = readLine()!
             
-            if let row = accounts.firstIndex(where: {$0.cin == cin}) {
-                accounts[row] = Account(cin: accounts[row].cin, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: accounts[row].accountNo, pin: accounts[row].pin, accountTypes: accounts[row].accountTypes, accBalance: [:])
+            if let row = accounts.firstIndex(where: {$0.customer_id == customer_id}) {
+                accounts[row] = Account(customer_id: accounts[row].customer_id, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: accounts[row].accountNo, pin: accounts[row].pin, accountTypes: accounts[row].accountTypes, accBalance: [:])
             }
             
             //saving updated data locally
@@ -126,7 +127,7 @@ class Banking{
             print("Details Updated Successfully")
             readData()
         }else{
-            print("CIN does not exist")
+            print("customer id does not exist")
             print("1. Re-enter    2. or any no. to Exit")
             let choice = readLine()!
             choice == "1" ? editAccountDetails() : readData()
@@ -155,10 +156,10 @@ class Banking{
     
     func displayAccountDetail(){
         let accounts = readLocalFile().accounts
-        print("Enter CIN")
-        let cin = readLine()!
+        print("Enter customer id")
+        let customer_id = readLine()!
         
-        if let row = accounts.firstIndex(where: {$0.cin == cin}) {
+        if let row = accounts.firstIndex(where: {$0.customer_id == customer_id}) {
             let account = accounts[row]
             print("----------------------------------------------------------------------------")
             print("Name: \(account.name) | Phone No. \(account.phoneNo) | Address: \(account.address) | Email: \(account.email)")
@@ -167,7 +168,7 @@ class Banking{
             print("----------------------------------------------------------------------------")
             readData()
         }else{
-            print("CIN does not exist")
+            print("customer id does not exist")
             readData()
         }
     }

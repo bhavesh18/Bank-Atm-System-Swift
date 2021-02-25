@@ -14,7 +14,7 @@ func startBankingSystem(){
     if(selectionOption == "1"){
         //Transaction
         let transaction = Transaction()
-        transaction.readData(currentCIN: "")
+        transaction.readData(currentCustomerID: "")
     }else if(selectionOption == "2"){
         //Banking
         let banking = Banking()

@@ -15,8 +15,8 @@ enum TransactionType{
 
 class Transaction{
     
-    // storing the entered CIN
-    var cin: String = ""
+    // storing the entered customer_id
+    var customer_id: String = ""
     
     func handleMoneyTransaction(account: Account, row: Int, transactionType: TransactionType){
         //param:- transactionType holds enum value either .deposit or .draw
@@ -194,7 +194,7 @@ class Transaction{
                         localData.accounts[row] = account
                         saveJsonFile(of: localData)
                         print("Your bill paid successfully")
-                        readData(currentCIN: cin)
+                        readData(currentCustomerID: customer_id)
                     }
                 }while askAgain
 
@@ -204,12 +204,12 @@ class Transaction{
         
     }
     
-    func readData(currentCIN: String){
+    func readData(currentCustomerID: String){
         let localData = readLocalFile()
-        currentCIN != "" ?  print("") : print("Enter CIN")
-        cin = currentCIN != "" ? currentCIN : readLine()!
+        currentCustomerID != "" ?  print("") : print("Enter Customer id")
+        customer_id = currentCustomerID != "" ? currentCustomerID : readLine()!
         
-        if let row = localData.accounts.firstIndex(where: {$0.cin == cin}) {
+        if let row = localData.accounts.firstIndex(where: {$0.customer_id == customer_id}) {
             // user found
             let account = localData.accounts[row]
             var askAgain = true
@@ -253,15 +253,15 @@ class Transaction{
                 }while askAgain == true
             }else{
                 print("Incorrect pin.")
-                readData(currentCIN: cin)
+                readData(currentCustomerID: customer_id)
                 return
             }
         }else{
-            //wromg CIN
-            print("CIN does not exist")
+            //wromg customer_id
+            print("customer id does not exist")
             print("1. Re-enter    2. or any no. to Exit")
             let choice = readLine()!
-            choice == "1" ? readData(currentCIN: "") : startBankingSystem()
+            choice == "1" ? readData(currentCustomerID: "") : startBankingSystem()
         }
         
     }
