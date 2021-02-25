@@ -9,13 +9,12 @@ import Foundation
 
 class Transaction{
 
-    //enum for transaction types
+    //enum for transaction types which defines transaction specific cases
     enum TransactionType{
         case deposit
         case withdraw
     }
 
-    
     // storing the entered customer_id
     var customer_id: String = ""
     
