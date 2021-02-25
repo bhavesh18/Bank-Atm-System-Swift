@@ -257,7 +257,7 @@ class Transaction{
                 return
             }
         }else{
-            //wromg customer_id
+            //wrong customer_id
             print("customer id does not exist")
             print("1. Re-enter    2. or any no. to Exit")
             let choice = readLine()!
