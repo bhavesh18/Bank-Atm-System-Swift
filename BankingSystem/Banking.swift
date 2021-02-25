@@ -117,14 +117,16 @@ class Banking{
             let email = readLine()!
             
             if let row = accounts.firstIndex(where: {$0.customer_id == customer_id}) {
-                accounts[row] = Account(customer_id: accounts[row].customer_id, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: accounts[row].accountNo, pin: accounts[row].pin, accountTypes: accounts[row].accountTypes, accBalance: [:])
+                accounts[row] = Account(customer_id: accounts[row].customer_id, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: accounts[row].accountNo, pin: accounts[row].pin, accountTypes: accounts[row].accountTypes, accBalance: accounts[row].accBalance)
             }
             
             //saving updated data locally
             let localData = readLocalFile()
             localData.accounts = accounts
             saveJsonFile(of: localData)
-            print("Details Updated Successfully")
+            print("\n----------------------------------------------------------------------------")
+            print("Details Updated Successfully!!")
+            print("----------------------------------------------------------------------------")
             readData()
         }else{
             print("customer id does not exist")
@@ -136,7 +138,7 @@ class Banking{
     
     
     private func selectAccountType(){
-        print("Choose account type:")
+        print("\nChoose account type:")
         print("1. Savings 2. Current 3. Salary 4. Exit")
         let selectedOption = readLine()!
         

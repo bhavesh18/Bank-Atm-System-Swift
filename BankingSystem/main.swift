@@ -8,18 +8,19 @@
 import Foundation
 
 func startBankingSystem(){
-    print("Choose your option: \n1. Transaction    2. Banking Services    3. Exit")
+    print("---Welcome to Banking system---\nChoose your option: \n1. Banking Services    2. Transaction    3. Exit")
     let selectionOption = readLine()!
 
     if(selectionOption == "1"){
-        //Transaction
-        let transaction = Transaction()
-        transaction.readData(currentCustomerID: "")
-    }else if(selectionOption == "2"){
         //Banking
         let banking = Banking()
         banking.readData()
-        
+
+    }else if(selectionOption == "2"){
+        //Transaction
+        let transaction = Transaction()
+        transaction.readData(currentCustomerID: "")
+
     }else if(selectionOption == "3"){
         print("Thank you for using our service!!")
     }else{

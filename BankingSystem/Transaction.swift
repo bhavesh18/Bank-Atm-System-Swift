@@ -232,7 +232,7 @@ class Transaction{
                     if(choice == "1"){
                         print("----------------------------------------------------------------------------")
                         print("Your Account(s): \(account.accountNo)")
-                        print("Available Balance: \(account.accBalance)")
+                        print("Account Balance: \(account.accBalance)")
                         print("----------------------------------------------------------------------------")
                     }else if(choice == "2"){
                         handleMoneyTransaction(account: account, row: row, transactionType: .deposit)
