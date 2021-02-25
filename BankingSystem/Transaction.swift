@@ -226,7 +226,7 @@ class Transaction{
             if(pin == localData.accounts[row].pin){
                 
                 repeat{
-                    print("\n1. Display the current balance\n2. Deposit money\n3. Draw money\n4. Transfer money to other accounts within the bank\n5. Pay utility bills\n6. Exit")
+                    print("\n1. Display the current balance\n2. Deposit money\n3. Withdraw money\n4. Transfer money to other accounts within the bank\n5. Pay utility bills\n6. Exit")
                     let choice = readLine()!
                     
                     if(choice == "1"){
