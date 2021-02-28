@@ -28,6 +28,7 @@ class Banking{
         var accBalance = [String: String]()
         var accNo: String = ""
         var pin: String = ""
+        var c_id = ""
         
         let index = getIndex(with: customer_id)
         
@@ -35,7 +36,7 @@ class Banking{
             // new user
             accountTypes.append(accountType)
             accBalance[accountType] = "0"
-            
+            c_id = customer_id
             print("Enter name")
             let name = readLine()!.trim()
             print("Enter Phone number")
@@ -70,6 +71,7 @@ class Banking{
             //adding new account balance. to stored dictionary
             accBalance = storedAcc.accBalance
             accBalance[accountType] = "0"
+            c_id = storedAcc.customer_id
             
             if(storedAcc.accountTypes.contains(accountType)){
                 // account type already exists
@@ -91,10 +93,10 @@ class Banking{
         
         saveJsonFile(of: localData) //saving locally
         
-        print("----------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------------------")
         print("Account Created Successfully!!")
-        print("Your Account No. is: \(accNo)    Pin: \(pin)    Account Type: \(accountType)")
-        print("----------------------------------------------------------------------------")
+        print("Your Account No. is: \(accNo)    Customer ID: \(c_id)    Pin: \(pin)    Account Type: \(accountType)")
+        print("----------------------------------------------------------------------------------")
         
         readData()
     }
