@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class Banking{
     
     //return the index of the accounts array(which is stored locally) where customer id matches.
@@ -19,9 +18,10 @@ class Banking{
         return localData.accounts.firstIndex(where: {$0.customer_id == customer_id}) ?? -1
     }
     
+    // this method called to create an account
     private func createAccount(of accountType: String){
         print("Set customer id")
-        let customer_id = readLine()!
+        let customer_id = readLine()!.trim()
         
         let localData = readLocalFile()
         var accountTypes = [String]()
@@ -37,13 +37,13 @@ class Banking{
             accBalance[accountType] = "0"
             
             print("Enter name")
-            let name = readLine()!
+            let name = readLine()!.trim()
             print("Enter Phone number")
-            let phoneNo = readLine()!
+            let phoneNo = readLine()!.trim()
             print("Enter address")
-            let address = readLine()!
+            let address = readLine()!.trim()
             print("Enter email address")
-            let email = readLine()!
+            let email = readLine()!.trim()
             
             let accountNo = String(String(Int64(Date().timeIntervalSince1970 * 1000)).suffix(10))
             accNo = accountNo
@@ -58,8 +58,8 @@ class Banking{
             
             let accountNo = String(String(Int64(Date().timeIntervalSince1970 * 1000)).suffix(10))
             accNo = accountNo
-            let generatedPin = String(String(Int64(Date().timeIntervalSince1970 * 1000)).suffix(4))
-            pin = generatedPin
+//            let generatedPin = storedAcc.pin
+            pin = storedAcc.pin
             
             accountTypes = storedAcc.accountTypes
             
@@ -89,7 +89,7 @@ class Banking{
             
         }
         
-        saveJsonFile(of: localData)
+        saveJsonFile(of: localData) //saving locally
         
         print("----------------------------------------------------------------------------")
         print("Account Created Successfully!!")
@@ -99,22 +99,22 @@ class Banking{
         readData()
     }
     
-    
+    //editing details of existing accounts
     private func editAccountDetails(){
         print("Enter customer id")
-        let customer_id = readLine()!
+        let customer_id = readLine()!.trim()
         var accounts = readLocalFile().accounts
         
         if(accounts.contains(where: {$0.customer_id == customer_id})){
             
             print("Enter new name")
-            let name = readLine()!
+            let name = readLine()!.trim()
             print("Enter new Phone number")
-            let phoneNo = readLine()!
+            let phoneNo = readLine()!.trim()
             print("Enter new address")
-            let address = readLine()!
+            let address = readLine()!.trim()
             print("Enter new email address")
-            let email = readLine()!
+            let email = readLine()!.trim()
             
             if let row = accounts.firstIndex(where: {$0.customer_id == customer_id}) {
                 accounts[row] = Account(customer_id: accounts[row].customer_id, name: name, phoneNo: phoneNo, address: address, email: email, accountNo: accounts[row].accountNo, pin: accounts[row].pin, accountTypes: accounts[row].accountTypes, accBalance: accounts[row].accBalance)
@@ -131,16 +131,16 @@ class Banking{
         }else{
             print("customer id does not exist")
             print("1. Re-enter    2. or any no. to Exit")
-            let choice = readLine()!
+            let choice = readLine()!.trim()
             choice == "1" ? editAccountDetails() : readData()
         }
     }
     
-    
+    //selecting account type
     private func selectAccountType(){
         print("\nChoose account type:")
         print("1. Savings 2. Current 3. Salary 4. Exit")
-        let selectedOption = readLine()!
+        let selectedOption = readLine()!.trim()
         
         if(selectedOption == "1"){
             createAccount(of: "savings")
@@ -156,10 +156,11 @@ class Banking{
         }
     }
     
+    //showing account details respecting to customer id
     func displayAccountDetail(){
         let accounts = readLocalFile().accounts
         print("Enter customer id")
-        let customer_id = readLine()!
+        let customer_id = readLine()!.trim()
         
         if let row = accounts.firstIndex(where: {$0.customer_id == customer_id}) {
             let account = accounts[row]
@@ -175,10 +176,11 @@ class Banking{
         }
     }
     
+    //showing menu and starting the selected service
     func readData(){
         print("Choose your service:")
         print("1. Create Account\n2. Edit Account Details\n3. Display Account Detail\n4. Exit")
-        let selectionOption = readLine()!
+        let selectionOption = readLine()!.trim()
         
         if(selectionOption == "1"){
             //Create account
@@ -189,14 +191,10 @@ class Banking{
         }else if(selectionOption == "3"){
             displayAccountDetail()
         }else if(selectionOption == "4"){
-//            print("Thank you for using our service!!")
             startBankingSystem()
         }else{
             print("Invalid entry")
             readData()
         }
-        
     }
-    
-    
 }

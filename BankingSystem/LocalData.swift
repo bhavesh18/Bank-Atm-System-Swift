@@ -7,11 +7,13 @@
 
 import Foundation
 
+// LocalData model which holds the Account details of all users
 class LocalData: Codable{
     var accounts: [Account] = []
     
 }
 
+// Account model which holds the account details of single user
 class Account: Codable{
     var customer_id: String
     var name: String
@@ -38,3 +40,5 @@ class Account: Codable{
     }
     
 }
+
+

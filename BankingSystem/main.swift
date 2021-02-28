@@ -7,9 +7,10 @@
 
 import Foundation
 
+//showing menu and starting the selected service
 func startBankingSystem(){
     print("---Welcome to Banking system---\nChoose your option: \n1. Banking Services    2. Transaction    3. Exit")
-    let selectionOption = readLine()!
+    let selectionOption = readLine()!.trim()
 
     if(selectionOption == "1"){
         //Banking
@@ -32,3 +33,10 @@ func startBankingSystem(){
 
 startBankingSystem() // program starts here
 
+
+//extension for string to add the trim method to remove spaces
+extension String{
+    func trim() -> String{
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
